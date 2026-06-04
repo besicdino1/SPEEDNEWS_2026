@@ -1,0 +1,446 @@
+============================================================
+  SPEEDNEWS — SETUP & USAGE GUIDE
+  Automotive News Web Application
+  University Assignment Project
+============================================================
+
+Open this file in Notepad (it is already open if you can read this).
+Follow every step in order. The whole setup takes about 5 minutes.
+
+------------------------------------------------------------
+  CONTENTS
+------------------------------------------------------------
+
+  1. Requirements
+  2. Step-by-step setup
+  3. Admin login credentials
+  4. Quick links (all pages)
+  5. How to use the NHTSA API page
+  6. How to use the VIN Decoder page
+  7. How to use the Admin Panel
+  8. Adding images to the site
+  9. Troubleshooting
+
+
+============================================================
+  1. REQUIREMENTS
+============================================================
+
+Before starting, you need:
+
+  - XAMPP installed (free download: https://www.apachefriends.org)
+  - An internet connection (for the NHTSA API pages)
+  - A browser (Chrome, Firefox, Edge — any modern browser)
+
+That is all. No paid software, no API keys, no accounts needed.
+
+
+============================================================
+  2. STEP-BY-STEP SETUP
+============================================================
+
+STEP 1 — Install XAMPP (skip if already installed)
+---------------------------------------------------
+  1. Go to https://www.apachefriends.org
+  2. Click Download for Windows
+  3. Run the installer and accept all defaults
+  4. Make sure Apache and MySQL are ticked during installation
+  5. Default install path: C:\xampp
+
+STEP 2 — Place the project files
+----------------------------------
+  The speednews folder must be inside C:\xampp\htdocs\
+
+  Correct location:
+    C:\xampp\htdocs\speednews\
+
+  If it is not there, move or copy the speednews folder into htdocs.
+
+STEP 3 — Start Apache and MySQL
+---------------------------------
+  1. Open XAMPP Control Panel
+     (search "XAMPP" in Start menu, or run C:\xampp\xampp-control.exe)
+  2. Click START next to Apache   --> row turns green
+  3. Click START next to MySQL    --> row turns green
+
+  If Windows Firewall asks for permission, click Allow Access.
+
+STEP 4 — Import the database
+------------------------------
+  1. Open your browser and go to:
+       http://localhost/phpmyadmin
+
+  2. Click IMPORT in the top navigation bar
+
+  3. Click Choose File and select this file:
+       C:\xampp\htdocs\speednews\database\speednews.sql
+
+  4. Scroll to the bottom and click GO
+
+  5. You will see a green success message.
+     The speednews database is now created with all tables and
+     sample data (2 admin users, 5 news articles, 6 gallery images).
+
+STEP 5 — Open the website
+---------------------------
+  Go to this address in your browser:
+
+    http://localhost/speednews/
+
+  The SpeedNews homepage should load immediately.
+  If it does not load, check that Apache and MySQL are both green
+  in the XAMPP Control Panel (Step 3).
+
+
+============================================================
+  3. ADMIN LOGIN CREDENTIALS
+============================================================
+
+  There are two admin accounts pre-loaded in the database.
+  Both use the same password.
+
+  Account 1
+  ---------
+  Email:    admin@speednews.com
+  Password: password
+  Name:     Alex Turner
+
+  Account 2
+  ---------
+  Email:    editor@speednews.com
+  Password: password
+  Name:     Maria Santos
+
+  To log in:
+    1. Go to http://localhost/speednews/login.php
+    2. Enter the email and password above
+    3. Click Sign In
+    4. You are taken to the Admin Dashboard automatically
+
+  NOTE: Change these passwords before any public deployment.
+  You can do this in Admin Panel --> Users --> Edit.
+
+
+============================================================
+  4. QUICK LINKS (ALL PAGES)
+============================================================
+
+  PUBLIC PAGES
+  ------------
+  Homepage        http://localhost/speednews/
+  News            http://localhost/speednews/news.php
+  Gallery         http://localhost/speednews/gallery.php
+  About           http://localhost/speednews/about.php
+  Contact         http://localhost/speednews/contact.php
+  NHTSA API       http://localhost/speednews/api-nhtsa.php
+  VIN Decoder     http://localhost/speednews/api-vin.php
+  Register        http://localhost/speednews/register.php
+  Login           http://localhost/speednews/login.php
+
+  ADMIN PAGES (must be logged in as admin)
+  -----------------------------------------
+  Dashboard       http://localhost/speednews/admin/index.php
+  Users           http://localhost/speednews/admin/users.php
+  Add News        http://localhost/speednews/admin/news-add.php
+  Add Gallery     http://localhost/speednews/admin/gallery-add.php
+
+  DATABASE TOOL
+  -------------
+  phpMyAdmin      http://localhost/phpmyadmin
+
+
+============================================================
+  5. HOW TO USE THE NHTSA API PAGE
+============================================================
+
+  URL: http://localhost/speednews/api-nhtsa.php
+
+  This page fetches real data from the US government vehicle
+  database. Your computer needs internet access for this to work.
+  No API key or account is required.
+
+  BASIC SEARCH (models only)
+  ---------------------------
+  1. Type a car brand in the Make box    e.g.  Toyota
+  2. Leave the Model box empty
+  3. Type a year in the Year box         e.g.  2023
+  4. Click Search
+  5. A table appears with every model that brand made that year
+
+  FULL SEARCH (models + safety ratings)
+  ---------------------------------------
+  1. Make:   Toyota
+  2. Model:  Camry
+  3. Year:   2023
+  4. Click Search
+  5. You get the models table PLUS a star-rating table showing
+     overall crash score, front crash, side crash, and rollover
+
+  EXAMPLE SEARCHES THAT WORK WELL
+  ---------------------------------
+  Make         Model       Year    Notes
+  --------     -------     ----    -----
+  Toyota       Camry       2023    Full safety ratings
+  Ford         F-150       2022    Truck ratings
+  Honda        Civic       2021    Sedan ratings
+  Tesla        Model 3     2022    Electric vehicle ratings
+  BMW          (empty)     2023    All BMW models that year
+  Ferrari      (empty)     2023    All Ferrari models that year
+
+  TIPS
+  ----
+  - Make names are not case sensitive (toyota = Toyota = TOYOTA)
+  - If safety ratings are empty, copy the model name exactly as
+    shown in the models table and paste it into the Model box
+  - Exotic brands like Ferrari may return no safety ratings
+    (they are not crash-tested under the US government programme)
+
+
+============================================================
+  6. HOW TO USE THE VIN DECODER PAGE
+============================================================
+
+  URL: http://localhost/speednews/api-vin.php
+
+  A VIN (Vehicle Identification Number) is the unique 17-character
+  code found on every car (on the dashboard, door jamb, or documents).
+  This page decodes it into full vehicle details.
+
+  HOW TO USE
+  -----------
+  1. Go to http://localhost/speednews/api-vin.php
+  2. Type or paste a 17-character VIN into the input box
+  3. Click Decode VIN
+  4. You get:
+       - A summary card (Make, Model, Year, Engine, Body Style, etc.)
+       - JSON tab: raw JSON response from the API
+       - XML tab:  same data in XML format
+       - Full table of every decoded field
+
+  READY-TO-USE TEST VINs
+  -----------------------
+  Copy and paste any of these into the VIN box:
+
+  1HGBH41JXMN109186   Honda Civic
+  1FTFW1ET5DFC10312   Ford F-150
+  JM1BL1SF8A1234567   Mazda 3
+  1G1ZT53806F109149   Chevrolet Malibu
+  YV1RS61R242384973   Volvo S60
+
+  There is also a clickable sample link already on the page.
+  Click it to auto-fill the Honda Civic VIN.
+
+  WHAT THE TABS SHOW
+  -------------------
+  JSON tab:  Data formatted as JSON (used by JavaScript and modern apps)
+  XML tab:   Same data formatted as XML (used by government/enterprise systems)
+
+  Both formats are fetched by PHP on the server AND by JavaScript
+  in the browser -- both methods are demonstrated on this page.
+
+  TIPS
+  ----
+  - VINs must be exactly 17 characters (letters and numbers only)
+  - No spaces, dashes, or special characters
+  - The letter O and the number 0 look similar -- check carefully
+  - Not all fields have values; older vehicles have less data
+
+
+============================================================
+  7. HOW TO USE THE ADMIN PANEL
+============================================================
+
+  URL: http://localhost/speednews/admin/index.php
+  (Must be logged in as admin -- see Section 3 for credentials)
+
+  DASHBOARD
+  ----------
+  Shows 4 stat cards: total Users, Articles, Gallery Images, Messages.
+  Has 5 tabs at the top:
+
+    Users Tab     -- lists recent users with roles
+    News Tab      -- lists recent articles with edit/delete buttons
+    Gallery Tab   -- shows thumbnail grid with delete buttons
+    NHTSA JSON    -- live PHP API call showing Ferrari 2023 models in JSON
+    VIN XML       -- live PHP API call showing a decoded VIN in XML
+
+  MANAGING USERS
+  ---------------
+  Go to: http://localhost/speednews/admin/users.php
+
+  - See all registered users in a table
+  - Role shown with a coloured badge:
+      Green badge = Admin
+      Red badge   = User
+  - Click Edit to change name, email, role, or password
+  - Click Delete to remove a user (you cannot delete your own account)
+
+  ADDING A NEWS ARTICLE
+  ----------------------
+  Go to: http://localhost/speednews/admin/news-add.php
+
+  1. Type the article title (max 255 characters)
+  2. Write the article body in the large text area
+     (leave a blank line between paragraphs)
+  3. Optionally upload a featured image (JPG/PNG/WebP, max 5 MB)
+  4. Click Publish Article
+  5. The article goes live immediately on the News page
+
+  EDITING A NEWS ARTICLE
+  -----------------------
+  Option A: From the dashboard News tab, click Edit next to any article
+  Option B: Go to http://localhost/speednews/admin/news-edit.php?id=NUMBER
+
+  You can update the title, body, replace the image, or remove the image.
+  Click Save Changes when done.
+
+  DELETING A NEWS ARTICLE
+  ------------------------
+  Click Delete next to any article in the dashboard or edit page.
+  A confirmation page appears -- click Yes Delete Article to confirm.
+  This also removes the image file from the server.
+
+  ADDING A GALLERY IMAGE
+  -----------------------
+  Go to: http://localhost/speednews/admin/gallery-add.php
+
+  1. Click the image drop zone OR drag and drop a photo onto it
+  2. A preview of the image appears instantly
+  3. Type a caption describing the car (this shows on the gallery page)
+  4. Click Upload to Gallery
+  5. The image appears in the gallery grid on the right and on the
+     public gallery page immediately
+
+  DELETING A GALLERY IMAGE
+  -------------------------
+  Click Delete under any image in the gallery grid.
+  A confirmation dialog appears -- click OK to delete.
+  This removes both the database record and the image file from disk.
+
+
+============================================================
+  8. ADDING IMAGES TO THE SITE
+============================================================
+
+  The sample data references placeholder image filenames.
+  Download free car photos from https://www.pexels.com
+  (search "supercar", "sports car", or any brand name)
+  and save them with these exact names in these exact folders:
+
+  HOMEPAGE IMAGES
+  ----------------
+  File name          Folder
+  hero-bg.jpg        C:\xampp\htdocs\speednews\assets\images\
+  editorial.jpg      C:\xampp\htdocs\speednews\assets\images\
+
+  hero-bg.jpg is the full-screen background on the homepage.
+  Use a wide landscape car photo (1920x1080 pixels or larger).
+
+  NEWS ARTICLE IMAGES
+  --------------------
+  File name          Folder
+  news1.jpg          C:\xampp\htdocs\speednews\assets\uploads\
+  news2.jpg          C:\xampp\htdocs\speednews\assets\uploads\
+  news3.jpg          C:\xampp\htdocs\speednews\assets\uploads\
+  news4.jpg          C:\xampp\htdocs\speednews\assets\uploads\
+  news5.jpg          C:\xampp\htdocs\speednews\assets\uploads\
+
+  GALLERY IMAGES
+  ---------------
+  File name          Folder
+  gallery1.jpg       C:\xampp\htdocs\speednews\assets\images\gallery\
+  gallery2.jpg       C:\xampp\htdocs\speednews\assets\images\gallery\
+  gallery3.jpg       C:\xampp\htdocs\speednews\assets\images\gallery\
+  gallery4.jpg       C:\xampp\htdocs\speednews\assets\images\gallery\
+  gallery5.jpg       C:\xampp\htdocs\speednews\assets\images\gallery\
+  gallery6.jpg       C:\xampp\htdocs\speednews\assets\images\gallery\
+
+  NOTE: The site works without these images -- it shows a car emoji
+  placeholder instead. You can add them at any time.
+
+  You can also upload news images and gallery images directly through
+  the Admin Panel without renaming files -- the admin panel generates
+  safe filenames automatically.
+
+
+============================================================
+  9. TROUBLESHOOTING
+============================================================
+
+  PROBLEM: The page does not load / shows an error
+  -------------------------------------------------
+  - Check that Apache is green (running) in XAMPP Control Panel
+  - Check that MySQL is green (running) in XAMPP Control Panel
+  - Make sure the URL is exactly: http://localhost/speednews/
+
+  PROBLEM: "Database connection failed" error
+  --------------------------------------------
+  - Make sure MySQL is running in XAMPP Control Panel
+  - Open C:\xampp\htdocs\speednews\config\db.php in Notepad
+  - Check that DB_PASS is set to '' (empty, no password)
+    This is the XAMPP default. Change it if you set a MySQL password.
+
+  PROBLEM: Database not found / tables missing
+  ---------------------------------------------
+  - You may have skipped Step 4 (importing the database)
+  - Go to http://localhost/phpmyadmin
+  - Check if a database called speednews exists in the left panel
+  - If not, repeat Step 4 from Section 2 of this guide
+
+  PROBLEM: Apache will not start (port conflict)
+  -----------------------------------------------
+  - Another program is using port 80 (Skype, IIS, Teams, etc.)
+  - In XAMPP Control Panel click Config next to Apache
+  - Open httpd.conf and find the line: Listen 80
+  - Change it to: Listen 8080
+  - Save the file and restart Apache
+  - Access the site at: http://localhost:8080/speednews/
+
+  PROBLEM: MySQL will not start (port conflict)
+  ----------------------------------------------
+  - Another program is using port 3306
+  - In XAMPP Control Panel click Config next to MySQL
+  - Open my.ini and find: port=3306
+  - Change it to: port=3307
+  - Update C:\xampp\htdocs\speednews\config\db.php:
+    define('DB_PORT', '3307');
+  - Restart MySQL
+
+  PROBLEM: Images are not showing
+  --------------------------------
+  - Check the image files exist in the correct folders (see Section 8)
+  - Check the filenames match exactly (news1.jpg not News1.JPG)
+  - Windows filenames are not case sensitive but PHP/Apache on Linux are
+
+  PROBLEM: NHTSA API shows no data / spinning forever
+  ----------------------------------------------------
+  - Check your internet connection
+  - The NHTSA servers are occasionally down for maintenance
+  - Try again after a few minutes
+  - Try a common make like Toyota with year 2023
+
+  PROBLEM: File upload fails in Admin Panel
+  ------------------------------------------
+  - Right-click the uploads folder and check permissions
+  - Folder: C:\xampp\htdocs\speednews\assets\uploads\
+  - It must be writable by Apache
+  - On Windows with XAMPP this is usually automatic
+
+  PROBLEM: Cannot log in to admin panel
+  --------------------------------------
+  - Make sure you imported the database (the accounts are in the SQL file)
+  - Email:    admin@speednews.com
+  - Password: password
+  - Passwords are case sensitive -- make sure Caps Lock is off
+
+------------------------------------------------------------
+
+  Project:   SpeedNews Automotive News Web Application
+  Stack:     PHP 8 + MySQL + HTML5 + CSS3 + JavaScript
+  APIs:      NHTSA vPIC API (https://vpic.nhtsa.dot.gov/api/)
+  Server:    Apache via XAMPP
+
+  For detailed technical documentation see README.md
+  in the speednews root folder.
+
+============================================================
