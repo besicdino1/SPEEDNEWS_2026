@@ -213,9 +213,3 @@ API calls are made both **server-side** (PHP `file_get_contents`) and
 | 404 on all pages | Ensure the project folder is named exactly `speednews` inside `htdocs` |
 
 ---
-
-## Academic Declaration
-
-This project was created for educational purposes as part of a university
-web development assignment. All automotive content is fictional editorial copy
-written for demonstration. Vehicle data is sourced from the public NHTSA API.
