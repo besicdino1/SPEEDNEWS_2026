@@ -12,7 +12,7 @@ Dark automotive theme, REST API integration (NHTSA), admin panel, and responsive
 | Frontend | HTML5, CSS3 (Grid + Flexbox), Vanilla JavaScript |
 | Backend  | PHP 8+ |
 | Database | MySQL 5.7+ / MariaDB |
-| APIs     | NHTSA vPIC API (free, no key) |
+| APIs     | NHTSA vPIC API (free, no key) , API Ninjas key with registration|
 | Maps     | Google Maps Embed API |
 | Server   | Apache via XAMPP |
 
